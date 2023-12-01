@@ -2,8 +2,11 @@ import { useContext } from "react";
 import { CartContext } from "../context/Cart";
 import Layout from "../components/Layout";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 
 const cartPage = () => {
+    const router = useRouter();
     const { state, dispatch } = useContext(CartContext)
 
     const {cart : {cartItem}} = state
@@ -54,10 +57,13 @@ const cartPage = () => {
                   Total Price:{' '}
                   {cartItem.reduce((acc, cur) => acc + cur.qty * cur.price, 0)}
                 </div>
+                <div>
+                  <button onClick={()=>router.push("/")} className="rounded-xl bg-gray-700 text-white px-4 py-2">checkout</button>
+                </div>
               </div>
             </div>
           )}
         </Layout>
       )
 }
-export default cartPage;
+export default dynamic(()=> Promise.resolve(cartPage) , {ssr : false})

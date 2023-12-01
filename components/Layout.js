@@ -1,12 +1,18 @@
 import Head from "next/head"
 import Link from "next/link"
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { CartContext } from "../context/Cart"
 
 function Layout({title , children}){
     const {state , dispatch} = useContext(CartContext);
 
     const { cart } = state;
+
+    const [itemCount , setItemCount] = useState(0);
+
+    useEffect(()=>{
+    setItemCount(cart.cartItem.reduce((acc,cur)=> acc + cur.qty, 0));
+    },[cart.cartItem])
    return (
     <>
     <Head>
@@ -23,7 +29,7 @@ function Layout({title , children}){
                     cart
                     {cart.cartItem.length > 0 && (
                         <span className="ml-1 rounded-xl bg-gray-200 px-2 py-1 text-xs font-bold">
-                            {cart.cartItem.reduce((acc,cur)=> acc + cur.qty, 0)}
+                            {itemCount}
                         </span>
                     )}
                     </Link>
