@@ -1,13 +1,44 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
+
+import { useEffect } from "react";
+
 import { useForm } from "react-hook-form";
+import { signIn, useSession } from "next-auth/react";
+
 import Layout from "../components/Layout";
 const LoginPage = () => {
+  const { data: session } = useSession();
+
+  const router = useRouter();
+  const { redirect } = router.query;
+
+  useEffect(() => {
+    if (session?.user) {
+      router.push(redirect || "/");
+    }
+  }, [router, session, redirect]);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  function submitHandler({ email, password }) {}
+  async function submitHandler({ email, password }) {
+    try {
+      const result = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
+
+      if (result.error) {
+        console.log("faild");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return (
     <Layout title={"login"}>
       <form onSubmit={handleSubmit(submitHandler)}>
@@ -63,6 +94,9 @@ const LoginPage = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div className="mb-4">
+          <Link href="register">Register</Link>
         </div>
       </form>
     </Layout>
