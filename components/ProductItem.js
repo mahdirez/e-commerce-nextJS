@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-function Product({ item }) {
+function ProductItem({ item }) {
   return (
     <div className="bg-white rounded-xl mb-5 block">
       <Link href={`/product/${item.slug}`}>
@@ -18,4 +18,4 @@ function Product({ item }) {
     </div>
   );
 }
-export default Product;
+export default ProductItem;

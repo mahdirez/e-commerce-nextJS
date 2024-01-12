@@ -5,6 +5,10 @@ async function connect() {
 
   console.log("conected........");
 }
+function convertToObj(doc) {
+  doc._id = doc._id.toString();
 
-const db = { connect };
+  return doc;
+}
+const db = { connect, convertToObj };
 export default db;
