@@ -6,6 +6,8 @@ import { signOut, useSession } from "next-auth/react";
 import { Menu } from "@headlessui/react";
 import DropDown from "./DropDown";
 import Cookies from "js-cookie";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Layout({ title, children }) {
   const { status, data: session } = useSession();
@@ -29,6 +31,7 @@ function Layout({ title, children }) {
       <Head>
         <title>{`${title} - shopping`}</title>
       </Head>
+      <ToastContainer position="top-center" />
       <div className="flex min-h-screen flex-col justify-between">
         <header>
           <nav className="flex h-14 px-8 justify-between items-center border-b-4 bg-white">

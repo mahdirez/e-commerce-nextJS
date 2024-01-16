@@ -3,16 +3,6 @@ import { createContext, useReducer } from "react";
 
 export const CartContext = createContext();
 
-const getInitialCart = () => {
-  const cartFromCookies = Cookies.get("cart");
-  try {
-    return cartFromCookies ? JSON.parse(cartFromCookies) : { cartItem: [] };
-  } catch (error) {
-    console.error("Parsing error:", error);
-    return { cartItem: [] };
-  }
-};
-
 const initialState = {
   cart: Cookies.get("cart")
     ? JSON.parse(Cookies.get("cart"))

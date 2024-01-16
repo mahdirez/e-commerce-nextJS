@@ -1,4 +1,4 @@
-import products from "../../data/Products";
+import products from "../../data/products";
 import Product from "../../models/product";
 import db from "../../utils/db";
 
